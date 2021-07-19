@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fa3996a090d0406aa42131d88c137b34" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="DG_QUEJATERD_Model.PostActions" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DG_QUEJATERD_Model.PostActionTypes" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DG_QUEJATERD_Model.PostFiles" Width="1.5" PointX="8.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DG_QUEJATERD_Model.Posts" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DG_QUEJATERD_Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DG_QUEJATERD_Model.Users" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostActions_PostActionTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostActions_Posts" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostActions_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostActions_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostActionTypes_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostActionTypes_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostActionTypes_Users2" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostFiles_Posts" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostFiles_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostFiles_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_PostFiles_Users2" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_Posts_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_Posts_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="DG_QUEJATERD_Model.FK_Posts_Users2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DG_QUEJATERD_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="PostActions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostId" Type="bigint" Nullable="false" />
+    <Property Name="IsPositive" Type="bit" Nullable="false" />
+    <Property Name="ActionTypeId" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" />
+    <Property Name="DeletedBy" Type="bigint" />
+    <Property Name="DeletedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PostActionTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActionTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+    <Property Name="UpdatedAt" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="DeletedAt" Type="datetime" />
+    <Property Name="DeletedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="PostFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+    <Property Name="UpdatedAt" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="DeletedAt" Type="datetime" />
+    <Property Name="DeletedBy" Type="bigint" />
+    <Property Name="PostId" Type="bigint" Nullable="false" />
+    <Property Name="FileUrl" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FileType" Type="int" Nullable="false" />
+    <Property Name="IsVisible" Type="bit" Nullable="false" />
+    <Property Name="IsPreview" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Posts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="ntext" Nullable="false" />
+    <Property Name="IsVisible" Type="bit" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+    <Property Name="UpdatedAt" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="DeletedAt" Type="datetime" />
+    <Property Name="DeletedBy" Type="bigint" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+    <Property Name="UpdatedAt" Type="datetime" />
+    <Property Name="UpdatedBy" Type="bigint" />
+    <Property Name="DeletedAt" Type="datetime" />
+    <Property Name="DeletedBy" Type="bigint" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Passkey" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_PostActions_PostActionTypes">
+    <End Role="PostActionTypes" Type="Self.PostActionTypes" Multiplicity="1" />
+    <End Role="PostActions" Type="Self.PostActions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PostActionTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostActions">
+        <PropertyRef Name="ActionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostActions_Posts">
+    <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+    <End Role="PostActions" Type="Self.PostActions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Posts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostActions">
+        <PropertyRef Name="PostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostActions_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="PostActions" Type="Self.PostActions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostActions">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostActions_Users1">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="PostActions" Type="Self.PostActions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostActions">
+        <PropertyRef Name="DeletedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostActionTypes_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="PostActionTypes" Type="Self.PostActionTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostActionTypes">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostActionTypes_Users1">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="PostActionTypes" Type="Self.PostActionTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostActionTypes">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostActionTypes_Users2">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="PostActionTypes" Type="Self.PostActionTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostActionTypes">
+        <PropertyRef Name="DeletedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostFiles_Posts">
+    <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+    <End Role="PostFiles" Type="Self.PostFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Posts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostFiles">
+        <PropertyRef Name="PostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostFiles_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="PostFiles" Type="Self.PostFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostFiles">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostFiles_Users1">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="PostFiles" Type="Self.PostFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostFiles">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PostFiles_Users2">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="PostFiles" Type="Self.PostFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PostFiles">
+        <PropertyRef Name="DeletedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Posts_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Posts">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Posts_Users1">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Posts">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Posts_Users2">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Posts">
+        <PropertyRef Name="DeletedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DG_QUEJATERD_ModelStoreContainer">
+    <EntitySet Name="PostActions" EntityType="Self.PostActions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostActionTypes" EntityType="Self.PostActionTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostFiles" EntityType="Self.PostFiles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PostActions_PostActionTypes" Association="Self.FK_PostActions_PostActionTypes">
+      <End Role="PostActionTypes" EntitySet="PostActionTypes" />
+      <End Role="PostActions" EntitySet="PostActions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostActions_Posts" Association="Self.FK_PostActions_Posts">
+      <End Role="Posts" EntitySet="Posts" />
+      <End Role="PostActions" EntitySet="PostActions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostActions_Users" Association="Self.FK_PostActions_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PostActions" EntitySet="PostActions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostActions_Users1" Association="Self.FK_PostActions_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PostActions" EntitySet="PostActions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostActionTypes_Users" Association="Self.FK_PostActionTypes_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PostActionTypes" EntitySet="PostActionTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostActionTypes_Users1" Association="Self.FK_PostActionTypes_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PostActionTypes" EntitySet="PostActionTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostActionTypes_Users2" Association="Self.FK_PostActionTypes_Users2">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PostActionTypes" EntitySet="PostActionTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostFiles_Posts" Association="Self.FK_PostFiles_Posts">
+      <End Role="Posts" EntitySet="Posts" />
+      <End Role="PostFiles" EntitySet="PostFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostFiles_Users" Association="Self.FK_PostFiles_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PostFiles" EntitySet="PostFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostFiles_Users1" Association="Self.FK_PostFiles_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PostFiles" EntitySet="PostFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PostFiles_Users2" Association="Self.FK_PostFiles_Users2">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="PostFiles" EntitySet="PostFiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Posts" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Posts_Users1" Association="Self.FK_Posts_Users1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Posts" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Posts_Users2" Association="Self.FK_Posts_Users2">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Posts" EntitySet="Posts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
